@@ -67,7 +67,8 @@
         "valarray": "cpp",
         "variant": "cpp",
         "set": "cpp",
-        "text_encoding": "cpp"
+        "text_encoding": "cpp",
+        "codecvt": "cpp"
     },
     "configurations": [
         {

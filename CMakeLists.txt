@@ -9,7 +9,7 @@ PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 
 
 set(SOURCE_FILES 
-src/main.cpp src/Game.cpp src/LTexture.cpp src/Player.cpp src/Pokemon.cpp src/Attack.cpp src/LTimer.cpp)
+src/main.cpp src/Game.cpp src/LTexture.cpp src/Player.cpp src/Pokemon.cpp src/Attack.cpp src/LTimer.cpp src/fillFuncs.cpp src/Display.cpp)
 
 set(HEADER_FILES
 src/LTexture.hpp src/Game.hpp src/Player.hpp src/Pokemon.hpp src/Attack.hpp src/Enum.hpp src/LTimer.hpp)
