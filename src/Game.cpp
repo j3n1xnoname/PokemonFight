@@ -184,30 +184,30 @@ void Game::handleEvent()
 
     case STATE_CHOOSE_POKEMONS:
     {
-        if (input_press & KEY_ENTER && !selectedPokemons[curIndexPokemon])
+        if (input_press & KEY_ENTER && !selectedPokemons[(int)curIndexPokemon])
         {
-            selectedPokemons[curIndexPokemon] = true;
-            currentPlayer->playerPokemons[*playerPokemonIndex] = pokemons[curIndexPokemon];
-            *playerPokemonIndex += 1;
+            selectedPokemons[(int)curIndexPokemon] = true;
+            currentPlayer->playerPokemons[(int)*playerPokemonIndex] = pokemons[(int)curIndexPokemon];
+            *playerPokemonIndex = (PlayerPokemonIndexes)((int)*playerPokemonIndex + 1);
             choosedPokemon = true;
 
             if (choosedPokemon)
             {
-                pokemons[curIndexPokemon].texture.alpha = 100;
-                pokemons[curIndexPokemon].texture.setAlphaMod();
+                pokemons[(int)curIndexPokemon].texture.alpha = 100;
+                pokemons[(int)curIndexPokemon].texture.setAlphaMod();
             }
 
             Mix_PlayChannel(-1, chunks[CHUNK_PRESS_ENTER_MENU], 0);
         }
         if (input_press & KEY_RIGHT)
         {
-            curIndexPokemon++;
+            curIndexPokemon = (PokemonName)((int)curIndexPokemon + 1);
             Mix_PlayChannel(-1, chunks[CHUNK_PRESS_ARROW], 0);
         }
         if (input_press & KEY_LEFT)
         {
 
-            curIndexPokemon--;
+            curIndexPokemon = (PokemonName)((int)curIndexPokemon - 1);
             Mix_PlayChannel(-1, chunks[CHUNK_PRESS_ARROW], 0);
         }
 
@@ -225,14 +225,14 @@ void Game::handleEvent()
             nextState = true;
         }
 
-        if (curIndexPokemon < 0)
+        if ((int)curIndexPokemon < 0)
         {
-            curIndexPokemon = 0;
+            curIndexPokemon = (PokemonName)0;
         }
-        if (curIndexPokemon >= 6)
+        if ((int)curIndexPokemon >= 6)
         {
 
-            curIndexPokemon = 5;
+            curIndexPokemon = (PokemonName)5;
         }
         break;
     }
@@ -252,7 +252,7 @@ void Game::handleEvent()
             {
             case STATE_BATTLE_CHOOSE_POKEMON:
             {
-                if (!currentPlayer->playerPokemons[*playerPokemonIndex].isAlive)
+                if (!currentPlayer->playerPokemons[(int)*playerPokemonIndex].isAlive)
                 {
                     nextBattleState = false;
                 }
@@ -261,7 +261,7 @@ void Game::handleEvent()
 
             case STATE_BATTLE_CHOOSE_ATTACK:
             {
-                if (currentPlayer->playerPokemons[*playerPokemonIndex].attacks[curIndexAttack].attackWasteMana > currentPlayer->playerPokemons[*playerPokemonIndex].mana)
+                if (currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackWasteMana > currentPlayer->playerPokemons[(int)*playerPokemonIndex].mana)
                 {
                     nextBattleState = false;
                 }
@@ -270,7 +270,7 @@ void Game::handleEvent()
 
             case STATE_BATTLE_CHOOSE_ENEMY_POKEMON:
             {
-                if (!anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].isAlive)
+                if (!anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].isAlive)
                 {
                     nextBattleState = false;
                 }
@@ -291,17 +291,17 @@ void Game::handleEvent()
             {
             case STATE_BATTLE_CHOOSE_POKEMON:
             {
-                *playerPokemonIndex -= 1;
+                *playerPokemonIndex = (PlayerPokemonIndexes)((int)*playerPokemonIndex - 1);
                 break;
             }
             case STATE_BATTLE_CHOOSE_ATTACK:
             {
-                curIndexAttack--;
+                curIndexAttack = (AttackIndexes)((int)curIndexAttack - 1);
                 break;
             }
             case STATE_BATTLE_CHOOSE_ENEMY_POKEMON:
             {
-                *anotherPlayerPokemonIndex -= 1;
+                *anotherPlayerPokemonIndex = (PlayerPokemonIndexes)((int)*anotherPlayerPokemonIndex - 1);
                 break;
             }
             }
@@ -313,17 +313,17 @@ void Game::handleEvent()
             {
             case STATE_BATTLE_CHOOSE_POKEMON:
             {
-                *playerPokemonIndex += 1;
+                *playerPokemonIndex = (PlayerPokemonIndexes)((int)*playerPokemonIndex + 1);
                 break;
             }
             case STATE_BATTLE_CHOOSE_ATTACK:
             {
-                curIndexAttack++;
+                curIndexAttack = (AttackIndexes)((int)curIndexAttack + 1);
                 break;
             }
             case STATE_BATTLE_CHOOSE_ENEMY_POKEMON:
             {
-                *anotherPlayerPokemonIndex += 1;
+                *anotherPlayerPokemonIndex = (PlayerPokemonIndexes)((int)*anotherPlayerPokemonIndex + 1);
                 break;
             }
             }
@@ -473,8 +473,8 @@ void Game::display()
         }
 
         int arrow_width, arrow_height;
-        arrow_width = blastW * 3 + curIndexPokemon * 10 * SCREEN_WIDTH / 60;
-        arrow_height = (SCREEN_HEIGHT / 2 - pokemons[curIndexPokemon].texture.mHeight) / 2;
+        arrow_width = blastW * 3 + (int)curIndexPokemon * 10 * SCREEN_WIDTH / 60;
+        arrow_height = (SCREEN_HEIGHT / 2 - pokemons[(int)curIndexPokemon].texture.mHeight) / 2;
         if (curIndexPokemon == POKEMON_BLASTOISE)
         {
             arrow_width = blastW * 4;
@@ -603,18 +603,18 @@ void Game::display()
                 addTextToScreenRightAway("Choose enemy pokemon", SDL_Color{255, 21, 21, SDL_ALPHA_OPAQUE}, fonts[FONT_BATTLE_64], gRenderer,
                                          SCREEN_WIDTH * 25 / 64, 0);
             }
-            if (curIndexAttack != ATTACK_FIFTH && anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].isAlive)
+            if (curIndexAttack != ATTACK_FIFTH && anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].isAlive)
             {
                 std::string tempString = "";
-                tempString += std::to_string(currentPlayer->playerPokemons[*playerPokemonIndex].attacks[curIndexAttack].attackDamage);
+                tempString += std::to_string(currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackDamage);
                 tempString += " * ";
-                float tempNumber = attackCoefficents[currentPlayer->playerPokemons[*playerPokemonIndex].type][anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].type];
+                float tempNumber = attackCoefficents[currentPlayer->playerPokemons[(int)*playerPokemonIndex].type][anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].type];
                 char formattedNumber[10];
                 sprintf(formattedNumber, "%.1f", tempNumber);
                 tempString += formattedNumber;
                 // tempString += std::to_string(attackCoefficents[currentPlayer->playerPokemons[*playerPokemonIndex].type][anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].type]);
                 tempString += " = ";
-                tempString += std::to_string((int)(currentPlayer->playerPokemons[*playerPokemonIndex].attacks[curIndexAttack].attackDamage * attackCoefficents[currentPlayer->playerPokemons[*playerPokemonIndex].type][anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].type]));
+                tempString += std::to_string((int)(currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackDamage * attackCoefficents[currentPlayer->playerPokemons[(int)*playerPokemonIndex].type][anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].type]));
                 SDL_Color color;
                 if (currentPlayerNumber == 1)
                 {
@@ -993,8 +993,8 @@ void Game::updateState()
             for (int i = ATTACK_FIRST; i <= ATTACK_FIFTH; i++)
             {
 
-                currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.alpha = 255;
-                currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.setAlphaMod();
+                currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.alpha = 255;
+                currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.setAlphaMod();
             }
         }
 
@@ -1039,7 +1039,7 @@ void Game::updateState()
         if (nextBattleState)
         {
             nextBattleState = false;
-            battleState++;
+            battleState = (BattleStates)((int)battleState + 1);
         }
         break;
     }
@@ -1051,7 +1051,7 @@ void Game::updateState()
         {
             countAlivePokemons();
         }
-        globalState++;
+        globalState = (GameStates)((int)globalState + 1);
         nextState = false;
 
         if (Mix_PlayingMusic())
@@ -1505,17 +1505,17 @@ void Game::displayAttacks(Player *&player)
 {
     for (int i = 0; i <= ATTACK_FIFTH; i++)
     {
-        int tempW = SCREEN_WIDTH / 4 + player->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.mWidth + icons[ICON_ATTACK].mWidth * 8 / 7;
+        int tempW = SCREEN_WIDTH / 4 + player->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.mWidth + icons[ICON_ATTACK].mWidth * 8 / 7;
         int tempH = SCREEN_HEIGHT * (i + 1) * 2 / 16 - 15;
-        player->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.render(SCREEN_WIDTH / 4, SCREEN_HEIGHT * (i + 1) * 2 / 16, gRenderer);
-        icons[ICON_ATTACK].render(SCREEN_WIDTH / 4 + player->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.mWidth,
+        player->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.render(SCREEN_WIDTH / 4, SCREEN_HEIGHT * (i + 1) * 2 / 16, gRenderer);
+        icons[ICON_ATTACK].render(SCREEN_WIDTH / 4 + player->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.mWidth,
                                   SCREEN_HEIGHT * (i + 1) * 2 / 16 - 15, gRenderer);
-        addTextToScreenRightAway(std::to_string(currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackDamage),
+        addTextToScreenRightAway(std::to_string(currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackDamage),
                                  SDL_Color{201, 15, 15, SDL_ALPHA_OPAQUE}, fonts[FONT_BATTLE_64], gRenderer,
-                                 SCREEN_WIDTH / 4 + player->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.mWidth + icons[ICON_ATTACK].mWidth * 8 / 7,
+                                 SCREEN_WIDTH / 4 + player->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.mWidth + icons[ICON_ATTACK].mWidth * 8 / 7,
                                  SCREEN_HEIGHT * (i + 1) * 2 / 16 - 15);
         icons[ICON_BOTTLE_BIG].render(tempW + icons[ICON_BOTTLE_BIG].mWidth, tempH - 25, gRenderer);
-        addTextToScreenRightAway(std::to_string(currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackWasteMana),
+        addTextToScreenRightAway(std::to_string(currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackWasteMana),
                                  SDL_Color{0, 66, 225, SDL_ALPHA_OPAQUE}, fonts[FONT_BATTLE_64], gRenderer,
                                  tempW + icons[ICON_BOTTLE_BIG].mWidth * 2,
                                  tempH - 25 + icons[ICON_BOTTLE_BIG].mHeight / 4);
@@ -1524,7 +1524,7 @@ void Game::displayAttacks(Player *&player)
     addTextToScreenRightAway("Description of the attack:", SDL_Color{0, 0, 0, SDL_ALPHA_OPAQUE}, fonts[FONT_BATTLE_64], gRenderer,
                              SCREEN_WIDTH / 5, SCREEN_HEIGHT * 12 / 16);
 
-    addTextToScreenRightAway(player->playerPokemons[*playerPokemonIndex].attacks[curIndexAttack].attackDescription,
+    addTextToScreenRightAway(player->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackDescription,
                              SDL_Color{0, 0, 0, SDL_ALPHA_OPAQUE}, fonts[FONT_BATTLE_48], gRenderer,
                              SCREEN_WIDTH * 9 / 50, SCREEN_HEIGHT * 13 / 16);
 
@@ -1558,24 +1558,24 @@ void Game::removeDeadPokemons()
 
 void Game::damageOpponent()
 {
-    anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].hp -= (int)(currentPlayer->playerPokemons[*playerPokemonIndex].attacks[curIndexAttack].attackDamage * attackCoefficents[currentPlayer->playerPokemons[*playerPokemonIndex].type][anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].type]);
-    if (anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].hp < 0)
+    anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].hp -= (int)(currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackDamage * attackCoefficents[currentPlayer->playerPokemons[(int)*playerPokemonIndex].type][anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].type]);
+    if (anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].hp < 0)
     {
-        anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].hp = 0;
-        anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].isAlive = false;
+        anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].hp = 0;
+        anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].isAlive = false;
     }
 
-    currentPlayer->playerPokemons[*playerPokemonIndex].mana -= currentPlayer->playerPokemons[*playerPokemonIndex].attacks[curIndexAttack].attackWasteMana;
+    currentPlayer->playerPokemons[(int)*playerPokemonIndex].mana -= currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackWasteMana;
 }
 
 void Game::removeInaccessibleAttack()
 {
     for (int i = ATTACK_FIRST; i <= ATTACK_FIFTH; i++)
     {
-        if (currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackWasteMana > currentPlayer->playerPokemons[*playerPokemonIndex].mana)
+        if (currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackWasteMana > currentPlayer->playerPokemons[(int)*playerPokemonIndex].mana)
         {
-            currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.alpha = 100;
-            currentPlayer->playerPokemons[*playerPokemonIndex].attacks[i].attackNameText.setAlphaMod();
+            currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.alpha = 100;
+            currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[i].attackNameText.setAlphaMod();
         }
     }
 }

@@ -72,8 +72,8 @@ private:
     unsigned int input = 0;
     unsigned int input_press = 0;
 
-    int globalState = STATE_START;
-    int battleState = STATE_BATTLE_CHOOSE_POKEMON;
+    GameStates globalState = STATE_START;
+    BattleStates battleState = STATE_BATTLE_CHOOSE_POKEMON;
 
     std::vector<Player> players;
     std::vector<Pokemon> pokemons;
@@ -92,22 +92,22 @@ private:
     Player *anotherPlayer;
 
     bool selectedPokemons[6];
-    int curIndexPokemon = POKEMON_BLASTOISE;
-    int playerOnePokemonIndex = INDEX_POKEMON_ONE;
-    int playerTwoPokemonIndex = INDEX_POKEMON_ONE;
+    PokemonName curIndexPokemon = POKEMON_BLASTOISE;
+    PlayerPokemonIndexes playerOnePokemonIndex = INDEX_POKEMON_ONE;
+    PlayerPokemonIndexes playerTwoPokemonIndex = INDEX_POKEMON_ONE;
 
-    int curIndexAttack = ATTACK_FIRST;
+    AttackIndexes curIndexAttack = ATTACK_FIRST;
 
-    int *playerPokemonIndex;
-    int *anotherPlayerPokemonIndex;
+    PlayerPokemonIndexes *playerPokemonIndex;
+    PlayerPokemonIndexes *anotherPlayerPokemonIndex;
 
     bool choosedPokemon = false;
 
     bool makeDamage = false;
 
-    const float attackCoefficents[TYPE_NONE][TYPE_NONE] = {{1.0, 1.5, 0.5},
-                                                           {0.5, 1.0, 1.5},
-                                                           {1.5, 0.5, 1.0}};
+    const float attackCoefficents[(int)TYPE_NONE][(int)TYPE_NONE] = {{1.0, 1.5, 0.5},
+                                                                     {0.5, 1.0, 1.5},
+                                                                     {1.5, 0.5, 1.0}};
 
     int tempAngle = 0;
 };

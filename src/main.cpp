@@ -17,7 +17,6 @@ Game *game = new Game();
 
 int main()
 {
-
     std::srand(std::time(0));
     if (!game->init())
     {
