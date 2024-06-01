@@ -1,0 +1,125 @@
+Blastoise
+Water
+399
+133
+Water Gun
+The target is blasted with a forceful shot of water.
+65
+30
+Blite
+The target is bitten with viciously sharp fangs.
+100
+60
+Aqua Tail
+The user attacks by swinging its tail as if it were a vicious wave in a raging storm.
+110
+70
+Hydro Pump
+The target is blasted by a huge volume of water launched under great pressure.
+135
+130
+
+Cacturne
+Grass
+333
+181
+Bullet Seed
+The user forcefully shoots seeds at the target two to five times in a row.
+30
+25
+Facade
+This attack move doubles its power if the user is poisoned, burned, or paralyzed.
+60
+50
+Sand Attack
+Sand is hurled in the target's face, reducing the target's accuracy.
+100
+75
+Pin Missile
+Sharp spikes are shot at the target in rapid succession.
+150
+165
+
+Camerupt
+Fire
+341
+159
+Lava Plume
+The user torches everything around it in an inferno of scarlet flames.
+50
+40
+Eruption
+The user attacks opposing Pokemon with explosive fury.
+80
+70
+Explosion
+The user attacks everything around it by causing a tremendous explosion.
+100
+80
+Bulldoze
+The user strikes everything around it by stomping down on the ground. 
+130
+140
+
+Charizard
+Fire
+487
+66
+Dragon Claw
+The Pokemon strikes with powerful dragon claws.
+30
+0
+Scratch
+The Pokemon scratches the target with its claws.
+100
+25
+Fire Fang
+The Pokemon attacks the target with flaming fangs.
+150
+35
+Steel Wing
+The target is hit with wings of steel.
+160
+60
+
+Golduck
+Water
+348
+107
+Zen Headbutt
+The user focuses its willpower to its head and attacks the target
+40 
+10
+Round
+The user attacks the target with a song. 
+70
+25
+Psyshock
+The user materializes an odd psychic wave to attack the target.
+100 
+50
+Focus Blast
+The user heightens its mental focus and unleashes its power. 
+125
+100
+
+Venusaur
+Grass
+457
+152
+Tackle
+The Pokemon makes a frontal attack.
+40
+30
+Vine Whip
+The Pokemon attacks the target with grape lashes.
+50
+75
+Razor Leaf
+The Pokemon throws sharp leaves at the target.
+105
+125
+Cut
+The target is cut with a scythe or claw.
+120
+150
