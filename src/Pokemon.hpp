@@ -27,6 +27,4 @@ public:
     bool isAlive = true;
 
     void init(std::string name, int hp, int mana, int type, SDL_Renderer *gRenderer, TTF_Font *font);
-
-private:
 };

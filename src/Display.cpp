@@ -540,35 +540,7 @@ void Game::displayArrow()
     }
     else if (battleState == STATE_BATTLE_CHOOSE_ATTACK)
     {
-        switch (curIndexAttack)
-        {
-        case ATTACK_FIRST:
-        {
-            icons[ICON_ARROW_RIGHT].render(SCREEN_WIDTH / 4 - icons[ICON_ARROW_RIGHT].mWidth * 9 / 8, SCREEN_HEIGHT * 2 / 16 + 13, gRenderer);
-            break;
-        }
-
-        case ATTACK_SECOND:
-        {
-            icons[ICON_ARROW_RIGHT].render(SCREEN_WIDTH / 4 - icons[ICON_ARROW_RIGHT].mWidth * 9 / 8, SCREEN_HEIGHT * 4 / 16 + 13, gRenderer);
-            break;
-        }
-        case ATTACK_THIRD:
-        {
-            icons[ICON_ARROW_RIGHT].render(SCREEN_WIDTH / 4 - icons[ICON_ARROW_RIGHT].mWidth * 9 / 8, SCREEN_HEIGHT * 6 / 16 + 13, gRenderer);
-            break;
-        }
-        case ATTACK_FOURTH:
-        {
-            icons[ICON_ARROW_RIGHT].render(SCREEN_WIDTH / 4 - icons[ICON_ARROW_RIGHT].mWidth * 9 / 8, SCREEN_HEIGHT * 8 / 16 + 13, gRenderer);
-            break;
-        }
-        case ATTACK_FIFTH:
-        {
-            icons[ICON_ARROW_RIGHT].render(SCREEN_WIDTH / 4 - icons[ICON_ARROW_RIGHT].mWidth * 9 / 8, SCREEN_HEIGHT * 10 / 16 + 13, gRenderer);
-            break;
-        }
-        }
+        icons[ICON_ARROW_RIGHT].render(SCREEN_WIDTH / 4 - icons[ICON_ARROW_RIGHT].mWidth * 9 / 8, SCREEN_HEIGHT * 2 * (curIndexAttack + 1) / 16 + 13, gRenderer);
     }
     else if (battleState == STATE_BATTLE_CHOOSE_ENEMY_POKEMON)
     {

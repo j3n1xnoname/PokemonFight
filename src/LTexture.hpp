@@ -24,9 +24,6 @@ public:
 
     void setAlphaMod();
 
-    // int getWidth() { return mWidth; }
-    // int getHeight() { return mHeight; }
-
     bool isEmpty() { return mTexture == NULL; }
 
     Uint8 alpha;
@@ -34,7 +31,4 @@ public:
     int mHeight;
 
     SDL_Texture *mTexture;
-
-private:
-    // SDL_Texture *mTexture;
 };
