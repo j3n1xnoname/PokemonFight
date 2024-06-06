@@ -222,7 +222,7 @@ void Game::fillPokemons()
             hp = std::stoi(s);
             std::getline(in, s);
             mana = std::stoi(s);
-            int tempType;
+            PokemonTypes tempType;
             if (type == "Water")
                 tempType = TYPE_WATER;
             else if (type == "Grass")

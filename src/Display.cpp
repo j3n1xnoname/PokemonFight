@@ -6,7 +6,8 @@ void Game::display()
     {
     case STATE_START:
     {
-        texts[TEXT_PRESS_ENTER].render(SCREEN_WIDTH / 2 - texts[TEXT_PRESS_ENTER].mWidth / 2, SCREEN_HEIGHT / 2 - texts[TEXT_PRESS_ENTER].mHeight / 2, gRenderer);
+        texts[TEXT_PRESS_ENTER].render(SCREEN_WIDTH / 2 - texts[TEXT_PRESS_ENTER].mWidth / 2,
+                                       SCREEN_HEIGHT / 2 - texts[TEXT_PRESS_ENTER].mHeight / 2, gRenderer);
         break;
     }
     case STATE_CHOOSE_POKEMONS:

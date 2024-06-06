@@ -434,7 +434,6 @@ void Game::update()
 
 void Game::updateState()
 {
-
     switch (globalState)
     {
     case STATE_START:
@@ -636,6 +635,7 @@ void Game::removeDeadPokemons()
 void Game::damageOpponent()
 {
     anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].hp -= (int)(currentPlayer->playerPokemons[(int)*playerPokemonIndex].attacks[(int)curIndexAttack].attackDamage * attackCoefficents[currentPlayer->playerPokemons[(int)*playerPokemonIndex].type][anotherPlayer->playerPokemons[*anotherPlayerPokemonIndex].type]);
+
     if (anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].hp < 0)
     {
         anotherPlayer->playerPokemons[(int)*anotherPlayerPokemonIndex].hp = 0;

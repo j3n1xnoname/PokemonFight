@@ -22,7 +22,7 @@ Pokemon::~Pokemon()
     manaText.free();
 }
 
-void Pokemon::init(std::string name, int hp, int mana, int type, SDL_Renderer *gRenderer, TTF_Font *font)
+void Pokemon::init(std::string name, int hp, int mana, PokemonTypes type, SDL_Renderer *gRenderer, TTF_Font *font)
 {
     this->name = name;
     this->fullHp = hp;

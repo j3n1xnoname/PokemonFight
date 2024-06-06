@@ -22,9 +22,10 @@ public:
     int fullMana;
     int hp;
     int mana;
-    int type = TYPE_NONE;
+    PokemonTypes type = TYPE_NONE;
 
     bool isAlive = true;
 
-    void init(std::string name, int hp, int mana, int type, SDL_Renderer *gRenderer, TTF_Font *font);
+    void init(std::string name, int hp, int mana,
+              PokemonTypes type, SDL_Renderer *gRenderer, TTF_Font *font);
 };
